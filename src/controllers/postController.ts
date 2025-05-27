@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { Post } from "../entities/Post";
-import { User } from "../entities/User";
+import { Users } from "../entities/User";
 import { validateEntity } from "../utils/validate";
 
 const postRepository = AppDataSource.getRepository(Post);
-const userRepository = AppDataSource.getRepository(User);
+const userRepository = AppDataSource.getRepository(Users);
 
 export const getAllPosts = async (_req: Request, res: Response) => {
   try {
@@ -33,7 +33,7 @@ export const getPostById = async (req: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    const user = await userRepository.findOneBy({ id: req.userId! });
+    const user = await userRepository.findOneBy({ user_id: req.userId! });
     if (!user) return res.status(401).json({ message: "User not found" });
 
     const { title, content } = req.body;
@@ -60,7 +60,7 @@ export const updatePost = async (req: Request, res: Response) => {
     });
     if (!post) return res.status(404).json({ message: "Post not found" });
 
-    if (post.user.id !== req.userId) {
+    if (post.user.user_id !== req.userId) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -85,7 +85,7 @@ export const deletePost = async (req: Request, res: Response) => {
     });
     if (!post) return res.status(404).json({ message: "Post not found" });
 
-    if (post.user.id !== req.userId) {
+    if (post.user.user_id !== req.userId) {
       return res.status(403).json({ message: "Not authorized" });
     }
 

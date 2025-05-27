@@ -1,7 +1,8 @@
 // src/data-source.ts
 import { DataSource } from "typeorm";
-import { User } from "./entities/User";
+import { Users } from "./entities/User";
 import { Post } from "./entities/Post";
+import { Token } from "./entities/token";
 export const AppDataSource = new DataSource({
   type: "postgres",
   host: "localhost",
@@ -11,7 +12,8 @@ export const AppDataSource = new DataSource({
   database: "blog",
   synchronize: true,
   logging: false,
-  entities: [User,Post],  
+  entities: [Users,Post,Token],  
+  dropSchema: true, // CAUTION: drops everything on startup!
 });
 
 
