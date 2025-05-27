@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   database: "blog",
   synchronize: true,
   logging: false,
-  entities: [User,Post],  // import all your entities here
+  entities: [User,Post],  
 });
 
 

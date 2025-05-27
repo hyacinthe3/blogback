@@ -18,6 +18,13 @@ export class User {
   @Column()
   @Length(6, 100)
   password!: string;
+  // In User.ts
+@Column({ nullable: true })
+resetToken?: string;
+
+@Column({ type: "timestamp", nullable: true })
+resetTokenExpires?: Date;
+
 
   @OneToMany(() => Post, (post) => post.user)
   posts!: Post[];
