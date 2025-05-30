@@ -3,6 +3,8 @@ import { Length, IsEmail } from "class-validator";
 import { Post } from "./Post";
 import { Token } from "./token";
 
+export type UserRole='User' | 'Admin'
+
 @Entity()
 export class Users {
   @PrimaryGeneratedColumn()
@@ -17,8 +19,10 @@ export class Users {
   email!: string;
 
   @Column()
-  @Length(6, 100)
+  @Length(8, 100)
   password!: string;
+
+
 
   @OneToMany(() => Post, (post) => post.user)
   posts!: Post[];
@@ -28,4 +32,8 @@ export class Users {
 
   @OneToMany(() => Token, (token) => token.user)
   tokens!: Token[];
+
+
+  @Column({type:'varchar',default:'user'})
+  role!:UserRole;
 }

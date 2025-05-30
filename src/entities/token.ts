@@ -16,11 +16,9 @@ export class Token {
 
 
 
-    @ManyToOne(() => Users, (user) => user.tokens, {
-        onDelete: "RESTRICT", // or omit this line to use default
-        nullable: false,
-    })
-    user!: Users;
+@ManyToOne(() => Users, (user) => user.tokens, { onDelete: 'CASCADE' })
+user!: Users;
+
 
     @Column()
     token!: string;

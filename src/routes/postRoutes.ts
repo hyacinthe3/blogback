@@ -5,13 +5,13 @@ import {
   createPost,
   updatePost,
   deletePost,
-} from "../controllers/postController";
+} from "../controllers/authPosts";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
 const router = Router();
 
-router.get("/", getAllPosts);
-router.get("/:id", getPostById);
+router.get("/", authMiddleware, getAllPosts);
+router.get("/:id", authMiddleware, getPostById);
 router.post("/", authMiddleware, createPost);
 router.put("/:id", authMiddleware, updatePost);
 router.delete("/:id", authMiddleware, deletePost);

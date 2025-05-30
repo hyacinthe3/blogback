@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/authRoutes";
 import postRoutes from "./routes/postRoutes";
+import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -16,6 +17,8 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
+
+app.use(errorHandler)
 
 AppDataSource.initialize()
   .then(() => {
